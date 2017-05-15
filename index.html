@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+	<link type="text/css" rel="stylesheet" href="font-awesome.css" />
+	<link type="text/css" rel="stylesheet" href="css/grid.css" />
+    <link type="text/css" rel="stylesheet" href="css/style.css" />
+    <title>Morpion</title>
+  </head>
+  <body>
+		<div class="ligne">
+			<div class="case" id="case1"></div>
+			<div class="case" id="case2"></div>
+			<div class="case" id="case3"></div>
+		</div>
+		<div class="ligne">
+			<div class="case" id="case4"></div>
+			<div class="case" id="case5"></div>
+			<div class="case" id="case6"></div>
+		</div>
+		<div class="ligne">
+			<div class="case" id="case7"></div>
+			<div class="case" id="case8"></div>
+			<div class="case" id="case9"></div>
+		</div>
+	<script type="text/javascript">	
+		var choixJoueur = document.getElementsByClassName("case");
+		for(var i=0,il=choixJoueur.length;i<il;i++){
+			choixJoueur[i].addEventListener('click',function(){
+					if(this.innerHTML=='') choixPlayer(this);
+			});
+		}
+		var nbreTour=0;	
+		function choixPlayer(id){ //fonction qui permet de définir quel est le joueur, et d'appliquer X ou O
+			if(nbreTour++ % 2 == 0)
+			{
+				id.innerHTML="X";
+				id.style.color="red";
+			}else{
+				id.innerHTML="O";
+				id.style.color="blue";
+			}
+			winGame(choixJoueur[0].style.color,choixJoueur[1].style.color,choixJoueur[2].style.color); // gauche a droite r1
+			winGame(choixJoueur[3].style.color,choixJoueur[4].style.color,choixJoueur[5].style.color); // gauche a droite r2
+			winGame(choixJoueur[6].style.color,choixJoueur[7].style.color,choixJoueur[8].style.color); // gauche a droite r3
+			winGame(choixJoueur[0].style.color,choixJoueur[3].style.color,choixJoueur[6].style.color); // haut en bas l1
+			winGame(choixJoueur[1].style.color,choixJoueur[4].style.color,choixJoueur[7].style.color);// haut en bas l2
+			winGame(choixJoueur[2].style.color,choixJoueur[5].style.color,choixJoueur[8].style.color);	// haut en bas l3
+			winGame(choixJoueur[2].style.color,choixJoueur[4].style.color,choixJoueur[6].style.color); //diagonale
+			winGame(choixJoueur[0].style.color,choixJoueur[4].style.color,choixJoueur[8].style.color); //diagonale
+			nullGame(choixJoueur[0].style.color,choixJoueur[1].style.color,choixJoueur[2].style.color,choixJoueur[3].style.color,choixJoueur[4].style.color,choixJoueur[5].style.color,choixJoueur[6].style.color,choixJoueur[7].style.color,choixJoueur[8].style.color);
+		}
+		function winGame(color1,color2,color3){
+			if((color1 == 'red' || color1 == 'blue') && (color1 == color2 && color1==color3)){
+				alert("victory");
+				location.reload();
+			}
+		}
+		function nullGame(c1,c2,c3,c4,c5,c6,c7,c8,c9){
+			if(c1 !="" && c2 !="" && c3!="" && c4!="" && c5!="" && c6!="" && c7 !="" && c8 !="" && c9!=""){
+				alert("game over");
+				location.reload();
+			}
+		}
+  </script>
+  </body>
+
+</html>
